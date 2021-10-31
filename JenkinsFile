@@ -1,52 +1,20 @@
-package jenkins
-import java.text.SimpleDateFormat
-def inputA = ''
-def inputB = ''
-
-node('master') {
-    stage('Hello World') {
-              echo 'Hello World'
-    }
-    stage('Checkout'){
-      git url: 'https://github.com/valpravin/script.git', branch: 'main'
-    }
-
-   stage('Permission Setting'){
-      sh 'chmod +x *.sh'
-   }
-
-   stage('Build'){
-     inputA=valueA()
-     echo inputA
-     inputB=valueB()
-     echo inputB
-     sh "./hello.sh ${inputA} ${inputB}"    
-   }
- }
-
-
-def valueA() {
-    
-    stage('Input Value A') {
-        timeout(time: 10, unit: 'MINUTES') {
-            deployVersion = input(message: '', ok: 'OK', parameters: [
-                [$class: 'TextParameterDefinition', description: 'Enter value for A', name: 'Enter value for A']
-            ])
-        }
-    }
-    deployVersion
+pipeline {
+agent any
+stages {
+stage('Build') {
+steps {
+echo "hello World"
 }
-
-
-
-def valueB() {
-    
-    stage('Input Value B') {
-        timeout(time: 10, unit: 'MINUTES') {
-            deployVersion = input(message: '', ok: 'OK', parameters: [
-                [$class: 'TextParameterDefinition', description: 'Enter value for B', name: 'Enter value for B']
-            ])
-        }
-    }
-    deployVersion
+}
+stage('Test') {
+steps {
+echo "hello india"
+}
+}
+stage('Deploy') {
+steps {
+echo "hello Surat"
+}
+}
+}
 }
